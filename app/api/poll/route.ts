@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchActiveProjects } from "@/lib/freelancer/client";
 import { scoreProject } from "@/lib/scoring/score";
-import { generateProposalDraft } from "@/lib/claude/generateProposal";
+import { generateProposalDraft } from "@/lib/gemini/generateProposal";
 import { hasSeenProject, upsertProject } from "@/lib/db/projects";
 import { StoredProject } from "@/lib/db/models";
 

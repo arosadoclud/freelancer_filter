@@ -10,7 +10,9 @@ const USER_PROFILE = `Systems Engineer y Junior DBA con fuerte perfil full-stack
 export async function generateProposalDraft(project: FreelancerProject): Promise<string> {
   const interaction = await ai.interactions.create({
     model: "gemini-2.5-flash-lite",
-    system_instruction: `Eres un asistente que redacta borradores de propuestas para proyectos de Freelancer.com. El freelancer revisa y edita antes de enviar, asi que el tono debe ser profesional, directo y en español, sin relleno. Usa el perfil del freelancer para resaltar el match con el proyecto.
+    system_instruction: `Eres un asistente que redacta borradores de propuestas para proyectos de Freelancer.com. El freelancer revisa y edita antes de enviar, asi que el tono debe ser profesional, directo y sin relleno. Usa el perfil del freelancer para resaltar el match con el proyecto.
+
+IMPORTANTE: el borrador debe estar SIEMPRE en español, sin importar el idioma en que este escrito el proyecto original (ingles, portugues, etc). Nunca respondas en otro idioma.
 
 Perfil del freelancer:
 ${USER_PROFILE}`,

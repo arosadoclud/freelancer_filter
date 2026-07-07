@@ -62,6 +62,7 @@ export async function fetchActiveProjects(
     compact: "false",
   });
   params.append("project_types[]", "hourly");
+  params.append("languages[]", "es");
   for (const jobId of RELEVANT_JOB_IDS) {
     params.append("jobs[]", String(jobId));
   }

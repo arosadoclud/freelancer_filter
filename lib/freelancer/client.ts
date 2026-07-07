@@ -2,6 +2,30 @@ import { FreelancerActiveProjectsResponse, FreelancerProject, FreelancerUser } f
 
 const API_BASE = "https://www.freelancer.com/api";
 
+/**
+ * Freelancer.com job/category IDs matching the user's profile, verified against
+ * GET /api/projects/0.1/jobs/. Used to filter the active-projects feed so it
+ * doesn't pull in unrelated categories (design, marketing, accounting, etc.)
+ */
+const RELEVANT_JOB_IDS = [
+  68, // SQL
+  695, // Microsoft SQL Server
+  472, // Database Administration
+  397, // Dynamics
+  1099, // SSIS (SQL Server Integration Services)
+  1114, // T-SQL
+  1035, // Excel VBA
+  977, // Business Intelligence
+  9, // JavaScript
+  979, // Typescript
+  500, // Node.js
+  759, // React.js
+  1623, // React.js Framework
+  2376, // Next.js
+  1254, // MongoDB
+  1088, // Full Stack Development
+];
+
 function getAccessToken(): string {
   const token = process.env.FREELANCER_ACCESS_TOKEN;
   if (!token) {
@@ -38,6 +62,9 @@ export async function fetchActiveProjects(
     compact: "false",
   });
   params.append("project_types[]", "hourly");
+  for (const jobId of RELEVANT_JOB_IDS) {
+    params.append("jobs[]", String(jobId));
+  }
   if (fromTimeSubmitted) {
     params.set("from_time", String(fromTimeSubmitted));
   }
